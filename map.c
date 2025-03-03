@@ -6,7 +6,7 @@
 /*   By: eunhwang <eunhwang@student.42gyeongsan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 23:40:06 by eunhwang          #+#    #+#             */
-/*   Updated: 2025/02/16 14:55:44 by eunhwang         ###   ########.fr       */
+/*   Updated: 2025/02/22 17:20:02 by eunhwang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	draw_map(t_vars *vars)
 		while (map[y][x])
 		{
 			if (map[y][x] == '1')
-				draw_square(vars, x * SCALE, y * SCALE, color);
+				draw_square(vars, x * WALL, y * WALL, color);
 			x++;
 		}
 		y++;

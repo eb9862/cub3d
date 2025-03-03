@@ -6,7 +6,7 @@
 /*   By: eunhwang <eunhwang@student.42gyeongsan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 22:55:37 by eunhwang          #+#    #+#             */
-/*   Updated: 2025/02/20 17:30:49 by eunhwang         ###   ########.fr       */
+/*   Updated: 2025/02/26 20:09:55 by eunhwang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,34 +158,58 @@ int	rotate_player(int keycode, t_player *player)
 // 	return (0);
 // }
 
-int	move_player(int keycode, t_player *player)
+int	is_player_collision(double px, double py, t_vars *vars)
+{
+	int	x;
+	int	y;
+
+	px += WALL / 2;
+	py += WALL / 2;
+	x = (int)(px / WALL);
+	y = (int)(py / WALL);
+
+	if (vars->map[y][x] == '1')
+		return (1);
+	return (0);
+}
+
+int	move_player(int keycode, t_vars *vars)
 {
 	double	speed;
 	double	cos_value;
 	double	sin_value;
+	double	x_to_move = vars->player.x;
+	double	y_to_move = vars->player.y;
+	t_player	*player = &vars->player;
 
 	cos_value = cos(player->radian);
 	sin_value = sin(player->radian);
 	speed = 0.25;
 	if (keycode == W)
 	{
-		player->x += cos_value * speed;
-		player->y += sin_value * speed;
+		x_to_move += cos_value * speed;
+		y_to_move += sin_value * speed;
 	}
 	else if (keycode == S)
 	{
-		player->x -= cos_value * speed;
-		player->y -= sin_value * speed;
+		x_to_move -= cos_value * speed;
+		y_to_move -= sin_value * speed;
 	}
 	else if (keycode == A)
 	{
-		player->x += sin_value * speed;
-		player->y -= cos_value * speed;
+		x_to_move += sin_value * speed;
+		y_to_move -= cos_value * speed;
 	}
 	else if (keycode == D)
 	{
-		player->x -= sin_value * speed;
-		player->y += cos_value * speed;
+		x_to_move -= sin_value * speed;
+		y_to_move += cos_value * speed;
+	}
+	// 충돌 확인하고 플레이어 위치 업데이트
+	if (!is_player_collision(x_to_move * WALL, y_to_move * WALL, vars))
+	{
+		player->x = x_to_move;
+		player->y = y_to_move;
 	}
 	return (0);
 }
@@ -198,8 +222,8 @@ void	draw_player(t_vars *vars, int x, int y, int color)
 	int	py;
 
 	size = 10;
-	px = x + (SCALE / 2) - (size / 2);
-	py = y + (SCALE / 2) - (size / 2);
+	px = x + (WALL / 2) - (size / 2);
+	py = y + (WALL / 2) - (size / 2);
 	i = 0;
 	while (i < size)
 		pixel_to_image(vars, px + (i++), py, color);

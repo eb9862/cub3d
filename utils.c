@@ -6,7 +6,7 @@
 /*   By: eunhwang <eunhwang@student.42gyeongsan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 22:15:31 by eunhwang          #+#    #+#             */
-/*   Updated: 2025/02/16 14:23:44 by eunhwang         ###   ########.fr       */
+/*   Updated: 2025/02/22 17:32:24 by eunhwang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	draw_square(t_vars *vars, int x, int y, int color)
 	int	i;
 	int	size;
 
-	size = BLOCK;
+	size = WALL;
 	i = 0;
 	while (i < size)
 		pixel_to_image(vars, x + (i++), y, color);

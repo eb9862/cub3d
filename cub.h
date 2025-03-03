@@ -6,7 +6,7 @@
 /*   By: eunhwang <eunhwang@student.42gyeongsan.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 22:02:15 by eunhwang          #+#    #+#             */
-/*   Updated: 2025/02/19 19:35:24 by eunhwang         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:47:44 by eunhwang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@
 // # define ESC_KEY 0xff1b
 # define ESC_KEY 53
 
-# define SCALE 32
-# define BLOCK 32
+# define WALL 32
 
 typedef struct s_player
 {
@@ -69,6 +68,10 @@ typedef struct s_vars
 int		close_window(t_vars *vars);
 int		key_press(int keycode, t_vars *vars);
 void	reset_image(t_vars *vars);
+int		is_reach_wall(double px, double py, t_vars *vars);
+double	calculate_distance(double x1, double y1, double x2, double y2);
+double	correct_distance(double d, double start_radian, t_vars *vars);
+void	draw_ray(t_vars *vars, double start_radian, int x, int color);
 int		update_window(t_vars *vars);
 
 // map.c
@@ -81,7 +84,7 @@ void	draw_map(t_vars *vars);
 void	init_direction(t_player *player, t_vars *vars);
 void	init_player(t_player *player, t_vars *vars);
 int		rotate_player(int keycode, t_player *player);
-int		move_player(int keycode, t_player *player);
+int		move_player(int keycode, t_vars *vars);
 void	draw_player(t_vars *vars, int x, int y, int color);
 
 // utils.c
